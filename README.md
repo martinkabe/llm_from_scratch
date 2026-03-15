@@ -71,9 +71,30 @@ git push -u origin main
 If that doesn't work, use a Personal Access Token (PAT) explicitly in the remote URL:
 
 1. Generate a PAT at: GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic) — give it repo scope.
-
 2. Update the remote:
 
 ```bash
 git remote set-url origin https://martinkabe@github.com/martinkabe/llm_from_scratch.git
 ```
+
+
+
+## Troubleshooting SSL certificate errors
+
+* Some readers reported seeing ssl.SSLCertVerificationError: `SSL: CERTIFICATE_VERIFY_FAILED` when running `urllib.request.urlretrieve` in VSCode or Jupyter.
+* This usually means Python's certificate bundle is outdated.
+
+**Fixes**
+
+* Use Python ≥ 3.9; you can check your Python version by executing the following code:
+
+```
+importsys
+print(sys.__version__)
+```
+
+* Upgrade the cert bundle:
+  * pip: `pip install --upgrade certifi`
+  * uv: `uv pip install --upgrade certifi`
+* Restart the Jupyter kernel after upgrading.
+* If you still encounter an `ssl.SSLCertVerificationError` when executing the previous code cell, please see the discussion at [more information here on GitHub](https://github.com/rasbt/LLMs-from-scratch/pull/403)
