@@ -43,3 +43,37 @@ uv pip install -r requirements.txt
 ```bash
 curl -o .gitignore https://raw.githubusercontent.com/github/gitignore/main/Python.gitignore
 ```
+
+## Create and initialize new repository
+
+```bash
+cd ~/Projects/LLMs/llm_from_scratch
+
+git init
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin https://github.com/martinkabe/llm_from_scratch.git
+git push -u origin main
+```
+
+**Fix — clear the old cached credentials and re-authenticate:**
+
+```bash
+git credential reject <<EOF
+protocol=https
+host=github.com
+EOF
+
+git push -u origin main
+```
+
+If that doesn't work, use a Personal Access Token (PAT) explicitly in the remote URL:
+
+1. Generate a PAT at: GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic) — give it repo scope.
+
+2. Update the remote:
+
+```bash
+git remote set-url origin https://martinkabe@github.com/martinkabe/llm_from_scratch.git
+```
